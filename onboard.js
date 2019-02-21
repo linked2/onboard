@@ -8,20 +8,18 @@ var headers;
 var access_token;
 const baseUrl = "https://platform.linked2.io/api/config/";
 
-
-
-
 //Wrapper async function because we can't have async code in the top level.
 (async () => {
-	
+	//Get the config data for the new integration
 	const name = await askQuestion("What is the Shopify customer name ? ");
 	const domain = await askQuestion("What is the Shopify domain ? ");
 	const secret = await askQuestion("What is the Shopify webhook secret ? ");
 	const poKey = await askQuestion("What is the PowerOffice client key ? ");
 
+	//authenticate for access to the Linked2 API
 	access_token = await authenticate();
 
-	//Fetch your product list. The access_token is used to identify you.
+	//Fetch your integration product list.
 	var productList = await getProductList();
 
 	console.log( "Products:")
@@ -85,7 +83,7 @@ const baseUrl = "https://platform.linked2.io/api/config/";
 	}
 })();
 
-
+//User input
 function askQuestion(prompt) {
 	const rl = readline.createInterface({
         input: process.stdin,
@@ -98,10 +96,11 @@ function askQuestion(prompt) {
     }));
 }
 
+//Authenticate with the Linked2 platform. Request a client_id and client_secret and enter them below.
 async function authenticate() {
 	const credentials = {
-		client_id : "IfI1Y3lpFmTmCWXD7W5Ah4jTAuKWc2Gn",
-		client_secret : "bfYvKC2EVKgaY4OT2lKRW7PW7OLjr-AU8_IiHQ9eImhQGekosmUWKscbkCF8kuiu",
+		client_id : "",
+		client_secret : "",
 		audience : "https://platform.linked2.io/api",
 		grant_type : "client_credentials"
 	}
@@ -116,7 +115,8 @@ async function authenticate() {
 		headers : authHeaders
 	});
 	let json = await rawResponse.json();
-
+	
+	// set the headers globally
 	headers = {
 		"Authorization" : "Bearer " + json.access_token,
 		"Content-Type" : "application/json"
@@ -124,7 +124,7 @@ async function authenticate() {
 	return json.access_token;
 }
 
-
+//Fetch a clients product list
 async function getProductList() {
 	let rawResponse = await fetch(baseUrl + "products", {
 		method : "get",
@@ -134,7 +134,7 @@ async function getProductList() {
 	return json;
 }
 
-
+//Fetch a stage configurator
 async function getStageConfigurator(productId) {
 	let rawResponse = await fetch(baseUrl + "new/stage/" + productId, {
 		method : "get",
@@ -145,7 +145,7 @@ async function getStageConfigurator(productId) {
 	return json;
 }
 
-
+//Install a new stage
 async function installStage( configurator ) {
 	let rawResponse = await fetch(baseUrl + "stage", {
 		method : "put",
@@ -157,7 +157,7 @@ async function installStage( configurator ) {
 	return json;
 }
 
-
+//Fetch notifications of success
 async function readNotification( resource ) {
 	let rawResponse = await fetch(resource, {
 		method : "get",
@@ -168,7 +168,7 @@ async function readNotification( resource ) {
 	return json;
 }
 
-
+//A simple function to set up the configurator with a ton of explanations.
 function configureStage( stageConfigurator, name, domain, secret, poKey )
 {
 	/* Set the required stage installation settings
