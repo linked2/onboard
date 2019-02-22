@@ -12,6 +12,8 @@ Our goal is to end up with an integration pipeline configuired and live for a Sh
 
 Check the onboard.js for the complete code tying together everything in the documentation here.
 
+If you run the applet with `-dev` command line option `node oboard.js -dev` then the applet will display the json responses that come from each call.
+
 ## Authentication
 
 The first step; you will need your Linked2 white lable "machine to machine" credentials. Linked2 will issue these to you when you open your account. They enable your application to authenticate with the Linked2 platform. You can communicate on behalf of your customers at the application level without requirement for your customers to give 3rd party application permissions.
@@ -138,7 +140,7 @@ Notice in the `stageConfiguration` object there is the `secret` property. This i
 
 All secrets are keys for an HMAC-SHA256 digest and we will also calculate the same digest using the same secret and compare the results.
 
-If you wish to replace the secret with a differnt one you have generated then go ahead, we will use yours. You can even use the same secret everytime you install, but we would not recommend this for obvious security reasons.
+If you wish to replace the secret with a differnt one you have generated then go ahead, we will use yours. You can even use the same secret everytime you install, but we would not recommend this for obvious security reasons - if one customer shared the secret all your customers would be compromised. But you might use the same secret for per end-customer for example.
 
 ```JavaScript
 function configureStage( stageConfigurator)
@@ -168,7 +170,7 @@ The `configureStage` function accepts the configurator returned by the `getStage
 
 ## Data you must store
 
-Clearly you will need to store the `secret`. The other peice of information you must store is the `stageId`. The `stageId` uniquely identfies the installed stage for your end-customer. Every webhook or batch you send us must be identified with the `stageId`. It is unique to this installation. You may simply choose to store it as the webhook URL. More on this below.
+Clearly you will need to store the `secret`. The other peice of information you must store is the `stageId`. The `stageId` uniquely identfies the installed stage for your end-customer. Every webhook or batch you send us must be identified with the `stageId`. It is unique to this installation. You may simply choose to store it as the webhook URL as in this Shopify example webhook URL `https://platform.linked2.io/api/webhooks/incoming/shopify/a28e0000-3a2a-000d-2bd0-08d69881c645`, this is a very common approach.
 
 Thats it, just the shared secret and the stageId.
 
