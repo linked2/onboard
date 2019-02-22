@@ -12,7 +12,7 @@ Our goal is to end up with an integration pipeline configuired and live for a Sh
 
 Check the onboard.js for the complete code tying together everything in the documentation here.
 
-If you run the applet with `-dev` command line option `node oboard.js -dev` then the applet will display the json responses that come from each call.
+If you run the applet with `-dev` command line option `node onboard.js -dev` then the applet will display the json responses that come from each call.
 
 ## Authentication
 
