@@ -10,7 +10,7 @@ We are going to use a demonstration integration product for this walk through an
 
 Our goal is to end up with an integration pipeline configuired and live for a Shopify customer moving orders as they are taken in Shopify directly into PowerOffice.
 
-In the blog here I have just include code snippets for the functions we will use in the app. The complete code is available on github, comes in at under 200 lines including a whole bunch of comments and console.logs!
+Check the onboard.js for the complete code tying together everything in the documentation here.
 
 ## Authentication
 
