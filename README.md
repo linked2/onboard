@@ -23,7 +23,7 @@ The credentials consist of a client id and a client secret.
 ```JavaScript
 async function authenticate() {
     const credentials = {
-        client_id : "IfI1Y3lpFHJGhgfdjhgUfuKWc2Gn",
+        client_id : "QEfdaY3lpFHJGhgfdjhgUfuKWc2Gn",
         client_secret : "bfYvKC2EVKgaY4OT2lKRW7PW7OLjr-AU8_IUJDKHJJDKJHKJHfdss3ww",
         audience : "https://platform.linked2.io/api",
         grant_type : "client_credentials"
